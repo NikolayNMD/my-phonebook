@@ -1,20 +1,23 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { getContacts, postContact, delContact } from 'services/contactsApi';
+import { getContacts, postContact, delContact } from 'services/authOperations';
 
 const contactInitialState = {
   contacts: [],
   isLoading: false,
   error: null,
+  isContactAdd: false,
 };
 
 const onPending = state => {
   state.isLoading = true;
   state.error = null;
+  state.isContactAdd = false;
 };
 
 const onRejected = (state, { payload }) => {
   state.isLoading = false;
   state.error = payload;
+  state.isContactAdd = false;
 };
 
 const arrayOfActs = [getContacts, postContact, delContact];
@@ -35,6 +38,7 @@ export const phoneBookSlice = createSlice({
         state.isLoading = false;
         state.contacts = [...state.contacts, payload];
         state.error = null;
+        state.isContactAdd = true;
       })
       .addCase(delContact.fulfilled, (state, { payload }) => {
         state.isLoading = false;

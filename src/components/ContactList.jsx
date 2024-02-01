@@ -7,7 +7,7 @@ import {
 import { styled } from 'styled-components';
 import { getFilter } from '../redux/filterSlice';
 import Notiflix from 'notiflix';
-import { getContacts, delContact } from 'services/contactsApi';
+import { getContacts, delContact } from 'services/authOperations';
 import { useEffect } from 'react';
 
 export const ContactList = () => {

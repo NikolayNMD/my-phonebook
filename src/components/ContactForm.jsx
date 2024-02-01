@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPhoneBookValue } from '../redux/phoneBookSlice';
 import Notiflix from 'notiflix';
-import { postContact } from 'services/contactsApi';
+import { postContact } from 'services/authOperations';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
