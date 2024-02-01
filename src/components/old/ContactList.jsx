@@ -3,9 +3,9 @@ import {
   getError,
   getIsLoading,
   getPhoneBookValue,
-} from '../redux/phoneBookSlice';
+} from '../../redux/phoneBookSlice';
 import { styled } from 'styled-components';
-import { getFilter } from '../redux/filterSlice';
+import { getFilter } from '../../redux/filterSlice';
 import Notiflix from 'notiflix';
 import { getContacts, delContact } from 'services/authOperations';
 import { useEffect } from 'react';

@@ -1,30 +1,42 @@
-import { ContactForm } from './ContactForm';
-import { Filter } from './Filter';
-import { ContactList } from './ContactList';
-import styled from 'styled-components';
+import { Route, Routes } from 'react-router-dom';
+import { Layout } from './Layout';
+import Home from 'pages/Home';
+import SignUp from 'pages/SignUp';
+import SignIn from 'pages/SignIn';
+import Contacts from 'pages/Contacts';
+import { RestrictedRoute } from './RestrictedRoute';
+import { PrivateRoute } from './PrivateRoute';
 
 export const App = () => {
   return (
-    <Wrapper>
-      <Container>
-        <h1 style={{ textAlign: 'center', color: 'white' }}>Phonebook</h1>
-        <ContactForm />
-        <h2 style={{ textAlign: 'center', color: 'white' }}>Contacts</h2>
-        <Filter />
-        <ContactList />
-      </Container>
-    </Wrapper>
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute redirectTo="/contacts" component={<SignUp />} />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute redirectTo="/contacts" component={<SignIn />} />
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute redirectTo="/login" component={<Contacts />} />
+            }
+          />
+          <Route
+            path="*"
+            element={<PrivateRoute redirectTo="/login" component={<Home />} />}
+          />
+        </Route>
+      </Routes>
+    </>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const Container = styled.div`
-  padding: 40px;
-  margin: 10px;
-  background-color: rgba(71, 176, 192, 0.7);
-  border-radius: 5px;
-`;
