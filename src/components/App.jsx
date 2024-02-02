@@ -1,14 +1,29 @@
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout';
-import Home from 'pages/Home';
-import SignUp from 'pages/SignUp';
-import SignIn from 'pages/SignIn';
-import Contacts from 'pages/Contacts';
 import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRoute';
+import { lazy, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCurrentUser } from '../redux/authSlice';
+import { getCurrentUser } from 'services/authOperations';
+import { Loader } from './Loader';
+
+const Home = lazy(() => import('pages/Home'));
+const SignIn = lazy(() => import('pages/SignIn'));
+const SignUp = lazy(() => import('pages/SignUp'));
+const Contacts = lazy(() => import('pages/Contacts'));
 
 export const App = () => {
-  return (
+  const dispatch = useDispatch();
+  const isCurrentUser = useSelector(selectCurrentUser);
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
+
+  return isCurrentUser ? (
+    <Loader />
+  ) : (
     <>
       <Routes>
         <Route path="/" element={<Layout />}>

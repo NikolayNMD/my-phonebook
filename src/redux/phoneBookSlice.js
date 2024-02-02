@@ -1,5 +1,9 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { getContacts, postContact, delContact } from 'services/authOperations';
+import {
+  delContact,
+  getContacts,
+  postContact,
+} from 'services/contactsOperations';
 
 const contactInitialState = {
   contacts: [],
