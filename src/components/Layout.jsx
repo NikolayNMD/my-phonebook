@@ -13,24 +13,22 @@ export const Layout = () => {
     <div
       style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}
     >
-      <header>
-        <AppBar sx={{ backgroundColor: 'teal' }}>
-          <Toolbar
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Toolbar sx={toolbarStyle}>
-              <StyledNavLink to="/">Home</StyledNavLink>
-              {isLoggedIn && (
-                <StyledNavLink to="/contacts">Contacts</StyledNavLink>
-              )}
-            </Toolbar>
-            <AuthNav />
+      <AppBar sx={{ backgroundColor: 'teal', position: 'relative' }}>
+        <Toolbar
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Toolbar sx={toolbarStyle}>
+            <StyledNavLink to="/">Home</StyledNavLink>
+            {isLoggedIn && (
+              <StyledNavLink to="/contacts">Contacts</StyledNavLink>
+            )}
           </Toolbar>
-        </AppBar>
-      </header>
+          <AuthNav />
+        </Toolbar>
+      </AppBar>
       <main style={{ flexGrow: 1 }}>
         <Suspense fallback={<div>Loading...</div>}>
           <Outlet />
@@ -39,16 +37,13 @@ export const Layout = () => {
       <footer>
         <Box component="footer" sx={boxFooterStyle}>
           <Container maxWidth="sm">
-            <Typography
-              variant="body2"
-              color="white"
-              align="center"
-              sx={{ mt: 2, mb: 2 }}
-            >
-              {'Copyright © '}
-              <Link href="#">NikolayNMD</Link> {new Date().getFullYear()}
-              {'.'}
-            </Typography>
+            <div style={{ padding: '14px 0' }}>
+              <Typography variant="body2" color="white" align="center">
+                {'Copyright © '}
+                <Link href="#">NikolayNMD</Link> {new Date().getFullYear()}
+                {'.'}
+              </Typography>
+            </div>
           </Container>
         </Box>
       </footer>
@@ -61,10 +56,9 @@ const toolbarStyle = {
   columnGap: 3,
 };
 
-const StyledNavLink = styled(NavLink)`
+export const StyledNavLink = styled(NavLink)`
   color: white;
   text-decoration: none;
-  font-weight: 500;
   font-size: 18px;
   &.active {
     color: orange;

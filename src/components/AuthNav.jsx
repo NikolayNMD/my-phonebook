@@ -1,6 +1,5 @@
 import { Toolbar } from '@mui/material';
-import { NavLink } from 'react-router-dom';
-import { styled } from 'styled-components';
+import { StyledNavLink } from './Layout';
 
 export const AuthNav = () => {
   return (
@@ -10,16 +9,6 @@ export const AuthNav = () => {
     </Toolbar>
   );
 };
-
-export const StyledNavLink = styled(NavLink)`
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 18px;
-  &.active {
-    color: orange;
-  }
-`;
 
 export const toolbarStyle = {
   display: 'flex',
