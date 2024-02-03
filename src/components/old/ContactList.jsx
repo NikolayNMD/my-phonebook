@@ -37,12 +37,14 @@ export const ContactList = () => {
 
   return (
     <List>
+      {contacts.length === 0 && <p>You don't have any contacts yet.</p>}
+
       {isLoading && <p>Loading...</p>}
 
       {error && <p>{error}</p>}
       {filteredContacts.map(contact => (
         <Item key={contact.id}>
-          {contact.name}: {contact.phone}
+          {contact.name}: {contact.number}
           <Buton onClick={() => handleDeleteContact(contact.id)} type="button">
             Delete
           </Buton>

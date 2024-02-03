@@ -5,6 +5,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { selectIsLoggedIn } from '../redux/authSlice';
 import { styled } from 'styled-components';
 import { AuthNav } from './AuthNav';
+import { UserMenu } from './UserMenu';
 
 export const Layout = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -26,7 +27,7 @@ export const Layout = () => {
               <StyledNavLink to="/contacts">Contacts</StyledNavLink>
             )}
           </Toolbar>
-          <AuthNav />
+          {isLoggedIn ? <UserMenu /> : <AuthNav />}
         </Toolbar>
       </AppBar>
       <main style={{ flexGrow: 1 }}>

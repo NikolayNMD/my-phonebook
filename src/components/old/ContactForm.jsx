@@ -1,16 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPhoneBookValue } from '../../redux/phoneBookSlice';
+import {
+  getPhoneBookValue,
+  selectIsContactAdd,
+} from '../../redux/phoneBookSlice';
 import Notiflix from 'notiflix';
 import { postContact } from 'services/contactsOperations';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
-  const [phone, setNumber] = useState('');
+  const [number, setNumber] = useState('');
+  const [add, setAdd] = useState(false);
+
   const dispatch = useDispatch();
   const contacts = useSelector(getPhoneBookValue);
+  const isContactAdd = useSelector(selectIsContactAdd);
+
+  useEffect(() => {
+    setAdd(false);
+  }, [contacts]);
+
+  useEffect(() => {
+    if (isContactAdd) {
+      setName('');
+      setNumber('');
+    }
+  }, [isContactAdd]);
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -31,7 +48,7 @@ export const ContactForm = () => {
   const handleSubmit = event => {
     event.preventDefault();
     // const id = nanoid();
-    const newContact = { name, phone };
+    const newContact = { name, number };
     const existingContact = contacts.find(
       contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
     );
@@ -40,12 +57,12 @@ export const ContactForm = () => {
       Notiflix.Notify.warning(`${newContact.name} is already in contacts.`);
       return;
     }
-
+    setAdd(true);
     dispatch(postContact(newContact));
     Notiflix.Notify.success(`${newContact.name} succesfully added!`);
 
-    setName('');
-    setNumber('');
+    // setName('');
+    // setNumber('');
   };
 
   return (
@@ -54,6 +71,7 @@ export const ContactForm = () => {
         Name
         <input
           placeholder="Enter name"
+          pattern="^[a-zA-Zа-яА-Я]+(([a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           type="text"
           name="name"
           value={name}
@@ -63,13 +81,15 @@ export const ContactForm = () => {
         Number
         <input
           placeholder="Enter phone number"
+          pattern="[0-9]*"
           type="tel"
           name="number"
-          value={phone}
+          value={number}
           onChange={handleChange}
           required
         />
-        <Button type="submit" disabled={!(name && phone)}>
+        <Button type="submit" disabled={!(name && number)}>
+          {add}
           Add contact
         </Button>
       </Label>

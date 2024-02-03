@@ -6,13 +6,13 @@ const Home = () => {
   return (
     <div>
       <HomeBG>
-        <div>
+        <StyledContainer>
           <h1>
             Hi! I'm your <span>phonebook</span>.
           </h1>
           <h3>Please login or register an account now.</h3>
           <BestBtn to="/login">Sign In!</BestBtn>
-        </div>
+        </StyledContainer>
       </HomeBG>
     </div>
   );
@@ -20,7 +20,7 @@ const Home = () => {
 
 export default Home;
 
-const HomeBG = styled.section`
+export const HomeBG = styled.section`
   background-image: linear-gradient(
       rgba(21, 22, 22, 0.7),
       rgba(22, 23, 40, 0.7)
@@ -31,27 +31,28 @@ const HomeBG = styled.section`
   background-repeat: no-repeat;
   height: 609.9px;
   position: relative;
-  div {
-    position: absolute;
-    right: 16%;
-    top: 25%;
-    h1 {
-      font-family: 'Prompt', sans-serif;
-      font-size: 30px;
-      font-weight: 600;
-      color: white;
-      margin-bottom: 10px;
-      span {
-        color: orange;
-      }
+`;
+
+const StyledContainer = styled.div`
+  position: absolute;
+  right: 16%;
+  top: 25%;
+  h1 {
+    font-family: 'Prompt', sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 10px;
+    span {
+      color: orange;
     }
-    h3 {
-      font-family: 'Prompt', sans-serif;
-      color: white;
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 15px;
-    }
+  }
+  h3 {
+    font-family: 'Prompt', sans-serif;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
   }
 `;
 

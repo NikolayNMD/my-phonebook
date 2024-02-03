@@ -59,3 +59,4 @@ export const phoneBookSlice = createSlice({
 export const getPhoneBookValue = state => state.phoneBook.contacts;
 export const getIsLoading = state => state.phoneBook.isLoading;
 export const getError = state => state.phoneBook.error;
+export const selectIsContactAdd = state => state.phoneBook.isContactAdd;
